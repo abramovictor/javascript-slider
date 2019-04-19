@@ -1,0 +1,83 @@
+.carousel--theme .carousel-navigation--prev span,
+.carousel--theme .carousel-navigation--next span,
+.carousel--theme .carousel-indicator--point span {
+    transition: all 0.3s;
+}
+
+.carousel--theme .carousel-navigation--prev,
+.carousel--theme .carousel-navigation--next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel--theme .carousel-navigation--prev span,
+.carousel--theme .carousel-navigation--next span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 5rem;
+    height: 5rem;
+
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+.carousel--theme .carousel-navigation--prev span:hover,
+.carousel--theme .carousel-navigation--next span:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.carousel--theme .carousel-navigation--prev span:active {
+    transform: translateX(-0.2rem);
+}
+
+.carousel--theme .carousel-navigation--next span:active {
+    transform: translateX(0.2rem);
+}
+
+.carousel--theme .carousel-navigation--prev {
+    left: 0;
+}
+
+.carousel--theme .carousel-navigation--next {
+    right: 0;
+}
+
+.carousel--theme .carousel-navigation--prev span {
+    border-top-right-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+}
+
+.carousel--theme .carousel-navigation--next span {
+    border-top-left-radius: 0.4rem;
+    border-bottom-left-radius: 0.4rem;
+}
+
+.carousel--theme .carousel-indicator {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+}
+
+.carousel--theme .carousel-indicator--point:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.carousel--theme .carousel-indicator--point span {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1.5px solid #fff;
+}
+
+.carousel--theme .carousel-indicator--point.is-active span {
+    background-color: #ffffff;
+}

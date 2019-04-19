@@ -1,0 +1,30 @@
+.carousel {
+    position: relative;
+    overflow: hidden;
+    z-index: 1010;
+}
+
+.carousel-inner {
+    display: flex;
+    width: calc(100% * 10);
+}
+
+.carousel-item > img {
+    display: block;
+    width: 100%;
+}
+
+.carousel-navigation .carousel-navigation--prev,
+.carousel-navigation .carousel-navigation--next,
+.carousel-navigation button.carousel-navigation--prev,
+.carousel-navigation button.carousel-navigation--next,
+.carousel-indicator .carousel-indicator--point,
+.carousel-indicator button.carousel-indicator--point {
+    padding: unset;
+    border: unset;
+    outline: unset;
+    background: unset;
+    color: unset;
+    display: block;
+    cursor: pointer;
+}
