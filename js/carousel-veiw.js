@@ -97,7 +97,6 @@ class CarouselView {
             this.carouselNavigation,
             this.carouselIndicator
         ].forEach(child => {
-            console.log(child);
             this.root.appendChild(child);
         });
     }
