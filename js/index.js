@@ -1,3 +1,1 @@
-new CarouselView().init(
-    document.querySelector('#carousel')
-);
+new CarouselView(document.querySelector('#carousel'), Carousel).init();

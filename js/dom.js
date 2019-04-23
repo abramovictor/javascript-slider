@@ -4,15 +4,23 @@ function createElement(tag, props, ...children) {
     if (props) {
         Object.entries(props).forEach(([key, value]) => {
             if (key.startsWith('on') && typeof value === 'function') {
-                element.addEventListener(key.substring(2), value);
-            } else if (key.startsWith('data-')) {
+                const eventName = key.substring(2);
+                element.addEventListener(eventName, value);
+            }
+            else if (key.startsWith('data-')) {
                 element.setAttribute(key, value);
-            } else {
+            }
+            else if (typeof value === 'object') {
+                Object.entries(value).forEach(([key2, value2]) => {
+                    element[key][key2] = value2;
+                })
+            }
+            else {
                 element[key] = value;
             }
         });
     }
-    
+
     children.forEach(child => {
         if (Array.isArray(child)) {
             return element.append(...child);
@@ -21,7 +29,7 @@ function createElement(tag, props, ...children) {
         if (typeof child === 'string' || typeof child === 'number') {
             child = document.createTextNode(child);
         }
-        
+
         if (child instanceof Node) {
             element.appendChild(child);
         }

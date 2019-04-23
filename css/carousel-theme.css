@@ -1,6 +1,6 @@
-.carousel--theme .carousel-navigation--prev span,
-.carousel--theme .carousel-navigation--next span,
-.carousel--theme .carousel-indicator--point span {
+.carousel--theme .carousel-navigation--prev,
+.carousel--theme .carousel-navigation--next,
+.carousel--theme .carousel-indicator--point {
     transition: all 0.3s;
 }
 
@@ -11,8 +11,8 @@
     transform: translateY(-50%);
 }
 
-.carousel--theme .carousel-navigation--prev span,
-.carousel--theme .carousel-navigation--next span {
+.carousel--theme .carousel-navigation--prev,
+.carousel--theme .carousel-navigation--next {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,17 +25,17 @@
     font-size: 2rem;
 }
 
-.carousel--theme .carousel-navigation--prev span:hover,
-.carousel--theme .carousel-navigation--next span:hover {
+.carousel--theme .carousel-navigation--prev:hover,
+.carousel--theme .carousel-navigation--next:hover {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.carousel--theme .carousel-navigation--prev span:active {
-    transform: translateX(-0.2rem);
+.carousel--theme .carousel-navigation--prev:active {
+    left: -0.3rem;
 }
 
-.carousel--theme .carousel-navigation--next span:active {
-    transform: translateX(0.2rem);
+.carousel--theme .carousel-navigation--next:active {
+    right: -0.3rem;
 }
 
 .carousel--theme .carousel-navigation--prev {
@@ -46,12 +46,12 @@
     right: 0;
 }
 
-.carousel--theme .carousel-navigation--prev span {
+.carousel--theme .carousel-navigation--prev {
     border-top-right-radius: 0.4rem;
     border-bottom-right-radius: 0.4rem;
 }
 
-.carousel--theme .carousel-navigation--next span {
+.carousel--theme .carousel-navigation--next {
     border-top-left-radius: 0.4rem;
     border-bottom-left-radius: 0.4rem;
 }
@@ -69,7 +69,7 @@
     margin-right: 1rem;
 }
 
-.carousel--theme .carousel-indicator--point span {
+.carousel--theme .carousel-indicator--point {
     display: block;
     width: 1.5rem;
     height: 1.5rem;
@@ -78,6 +78,6 @@
     border: 1.5px solid #fff;
 }
 
-.carousel--theme .carousel-indicator--point.is-active span {
+.carousel--theme .carousel-indicator--point.is-active {
     background-color: #ffffff;
 }
