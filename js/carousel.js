@@ -3,29 +3,35 @@ class Carousel {
         return (rootElement.offsetWidth * length) / amountSlide;
     }
 
-    static getIndex(carouselItems = Array.prototype, carouselItem = Node.prototype) {
+    static getIndex(carouselItems = Array.prototype, carouselItem = Node.prototype, loop = Boolean.prototype) {
+        const FIRST_INDEX = 0;
+        const LAST_INDEX = carouselItems.length - 1;
+
         return {
             get current() {
                 return carouselItems.indexOf(carouselItem);
             },
             get prev() {
-                let { length } = carouselItems;
                 let current = carouselItems.indexOf(carouselItem);
                 let prev = current - 1;
 
-                if (prev < 0) {
-                    prev = length - 1;
+                if (prev < FIRST_INDEX && loop === true) {
+                    prev = LAST_INDEX;
+                } else if (prev < FIRST_INDEX) {
+                    prev = FIRST_INDEX;
                 }
 
                 return prev;
             },
             get next() {
-                let { length } = carouselItems;
                 let current = carouselItems.indexOf(carouselItem);
                 let next = current + 1;
 
-                if (next >= length) {
-                    next = 0;
+                if (next > LAST_INDEX && loop === true) {
+                    next = FIRST_INDEX;
+                }
+                else if (next > LAST_INDEX) {
+                    next = LAST_INDEX;
                 }
 
                 return next;
@@ -33,24 +39,30 @@ class Carousel {
         }
     }
 
-    static getOffset(carouselItems = Array.prototype, carouselItem = Node.prototype) {
+    static getOffset(carouselItems = Array.prototype, carouselItem = Node.prototype, amountSlide = Number.prototype) {
         let index = Carousel.getIndex(carouselItems, carouselItem).current;
+        let { length } = carouselItems;
+        let allWidth = carouselItem.clientWidth * length;
+        let amountWidth = carouselItem.clientWidth * amountSlide;
+        let offsetWidth = allWidth - amountWidth;
 
-        return carouselItem.clientWidth * index;
+        let offset = carouselItem.clientWidth * index;
+
+        return offset <= offsetWidth ? offset : offsetWidth;
     }
 
-    static getElement(elements = Array.prototype, activeIndex = Number.prototype) {
+    static getElement(elements = Array.prototype, activeIndex = Number.prototype, loop = Boolean.prototype) {
         return {
             get active() {
                 return elements[activeIndex];
             },
             get prev() {
                 const activeSlide = Carousel.getElement(elements, activeIndex).active;
-                return elements[Carousel.getIndex(elements, activeSlide).prev];
+                return elements[Carousel.getIndex(elements, activeSlide, loop).prev];
             },
             get next() {
                 const activeSlide = Carousel.getElement(elements, activeIndex).active;
-                return elements[Carousel.getIndex(elements, activeSlide).next];
+                return elements[Carousel.getIndex(elements, activeSlide, loop).next];
             }
         }
     }
