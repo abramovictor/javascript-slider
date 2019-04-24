@@ -1,20 +1,16 @@
 window.$ = createElement;
 
 class CarouselView {
-    static classNames = {
-        IS_ACTIVE: 'is-active'
-    };
-
-    constructor(rootElement = Node.prototype, carousel = Object.prototype) {
+    constructor(root = Node.prototype, carousel = Object.prototype, props = Object.prototype) {
         this.carousel = carousel;
-        this._rootElement = rootElement;
-        this._rootElementChildren = [...this._rootElement.children];
-        this.length = this._rootElementChildren.length;
-        this.startSlide = 0;
-        this.activeIndex = this.startSlide;
+        this.root = root;
+        this.children = [...root.children];
+        this.length = this.children.length;
 
-        this.params = null;
+        this.props = props;
 
+        this.startSlide = null;
+        this.activeIndex = null;
         this.activeSlide = null;
         this.activePoint = null;
         this.carouselInner = null;
@@ -28,16 +24,13 @@ class CarouselView {
         this.handleCarouselNavigationPrev = this.handleCarouselNavigationPrev.bind(this);
         this.handleCarouselNavigationNext = this.handleCarouselNavigationNext.bind(this);
         this.handleCarouselIndicatorPoint = this.handleCarouselIndicatorPoint.bind(this);
+
+        this.init();
     }
 
     init() {
-        this.params = {
-            amountSlide: 2,
-            loop: true,
-            slideSpeed: 500,
-            autoSlide: true,
-            autoSlideTimeout: 5000
-        };
+        this.startSlide = this.props.startSlide;
+        this.activeIndex = this.startSlide;
 
         this.render();
 
@@ -46,12 +39,12 @@ class CarouselView {
     }
 
     handleCarouselNavigationPrev() {
-        const slide = this.carousel.getElement(this.carouselItems, this.activeIndex, this.params.loop).prev;
+        const slide = this.carousel.getElement(this.carouselItems, this.activeIndex).prev;
         this.move(slide);
     }
 
     handleCarouselNavigationNext() {
-        const slide = this.carousel.getElement(this.carouselItems, this.activeIndex, this.params.loop).next;
+        const slide = this.carousel.getElement(this.carouselItems, this.activeIndex).next;
         this.move(slide);
     }
 
@@ -63,17 +56,19 @@ class CarouselView {
     }
 
     render() {
-        this.carouselItems = this._rootElementChildren.map((child, index) =>
-            $('div', { className: `carousel-item${index === this.activeIndex ? ` ${CarouselView.classNames.IS_ACTIVE}` : ''}` },
+        this.carouselItems = this.children.map((child, index) =>
+            $('div', { className: `carousel-item${index === this.activeIndex ? ` ${this.props.classNames.active}` : ''}` },
                 child
             )
         );
 
-        let width = `${this.carousel.getInnerWidth(this._rootElement, this.length, this.params.amountSlide)}px`;
+        let width = `${this.carousel.getInnerWidth(this.length)}px`;
         this.carouselInner = $('div', {
             className: 'carousel-inner', style: {
                 width,
-                transition: `transform ${this.params.slideSpeed}ms`
+                transitionProperty: `transform`,
+                transitionDuration: ` ${this.props.animationSpeed}ms`,
+                transitionTimingFunction: this.props.animationTimingFunction
             }
         },
             ...this.carouselItems
@@ -103,13 +98,11 @@ class CarouselView {
         );
 
         this.carouselIndicatorPoints = [];
-        let length = this.length - (this.params.amountSlide - 1);
-
-        for (let index = 0; index < length; index++) {
+        for (let index = 0; index < this.length; index++) {
             this.carouselIndicatorPoints.push(
                 $('button',
                     {
-                        className: `carousel-indicator--point${index === this.startSlide ? ` ${CarouselView.classNames.IS_ACTIVE}` : ''}`,
+                        className: `carousel-indicator--point${index === this.startSlide ? ` ${this.props.classNames.active}` : ''}`,
                         type: 'button',
                         onclick: this.handleCarouselIndicatorPoint
                     },
@@ -123,22 +116,22 @@ class CarouselView {
         );
 
         [this.carouselInner, this.carouselNavigation, this.carouselIndicator].forEach((child) =>
-            this._rootElement.appendChild(child)
+            this.root.appendChild(child)
         );
     }
 
     move(currentSlide = Node.prototype) {
-        this.activeSlide.classList.remove(CarouselView.classNames.IS_ACTIVE);
-        this.activePoint.classList.remove(CarouselView.classNames.IS_ACTIVE);
+        this.activeSlide.classList.remove(this.props.classNames.active);
+        this.activePoint.classList.remove(this.props.classNames.active);
 
         let currentIndex = this.carousel.getIndex(this.carouselItems, currentSlide).current;
         let currentPoint = this.carousel.getElement(this.carouselIndicatorPoints, currentIndex).active;
 
-        let offset = this.carousel.getOffset(this.carouselItems, currentSlide, this.params.amountSlide);
+        let offset = this.carousel.getOffset(this.carouselItems, currentSlide);
         this.carouselInner.style.transform = `translateX(-${offset}px)`;
 
-        currentSlide.classList.add(CarouselView.classNames.IS_ACTIVE);
-        currentPoint.classList.add(CarouselView.classNames.IS_ACTIVE);
+        currentSlide.classList.add(this.props.classNames.active);
+        currentPoint.classList.add(this.props.classNames.active);
 
         this.activeIndex = currentIndex;
         this.activeSlide = currentSlide;
