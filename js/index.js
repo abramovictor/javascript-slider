@@ -36,4 +36,5 @@ new Slider('#carousel', {
     // animationTimingFunction: 'cubic-bezier(0,1.3,.7,1.2)',
     animationTimingFunction: 'ease-in-out',
     animationSpeed: 1000,
+    loop: true
 });
