@@ -1,4 +1,4 @@
-function createElement(tag, props, ...children) {
+export default function createElement(tag, props, ...children) {
     const element = document.createElement(tag);
 
     if (props) {
@@ -13,7 +13,7 @@ function createElement(tag, props, ...children) {
             else if (typeof value === 'object') {
                 Object.entries(value).forEach(([key2, value2]) => {
                     element[key][key2] = value2;
-                })
+                });
             }
             else {
                 element[key] = value;

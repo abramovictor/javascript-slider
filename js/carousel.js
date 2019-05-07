@@ -1,4 +1,4 @@
-class Carousel {
+export default class Carousel {
     constructor(root = Node.prototype, props = Object.prototype) {
         this.root = root;
         this.props = props;

@@ -1,6 +1,6 @@
-window.$ = createElement;
+import $ from './dom.js';
 
-class CarouselView {
+export default class CarouselView {
     constructor(root = Node.prototype, carousel = Object.prototype, props = Object.prototype) {
         this.carousel = carousel;
         this.root = root;
